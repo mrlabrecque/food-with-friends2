@@ -1,5 +1,6 @@
 // create an express app
 const express = require("express")
+const path = require('path');
 const app = express()
 
 // use the express-static middleware
