@@ -3,10 +3,10 @@ const express = require("express")
 const app = express()
 
 // use the express-static middleware
-app.use(express.static("dist/foodwithfriends"))
+app.use(express.static("public"))
 
 // define the first route
-app.get("/", function (req, res) {
+app.get("dist/foodwithfriends", function (req, res) {
   res.send("<h1>Hello World!</h1>")
 })
 
