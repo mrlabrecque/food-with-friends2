@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+       Discover
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="ion-padding">
+    <app-content-slider
+    [items]="topContentSliderItems"
+    [sliderSize]="'large'"
+    [options]="topContentSliderOptions"
+    [sliderTitle]="topContentSliderAttribute"
+    [showMore]="true"></app-content-slider>
+    <app-content-slider
+    [items]="secondContentSliderItems"
+    [sliderSize]="'small'"
+    [options]="secondContentSliderOptions"
+    [sliderTitle]="secondContentSliderAttribute"
+    ></app-content-slider>
+    <app-content-slider
+    [items]="thirdContentSliderItems"
+    [sliderSize]="'large'"
+    [options]="thirdContentSliderOptions"
+    [sliderTitle]="thirdContentSliderAttribute"
+    [showMore]="true"></app-content-slider>
+  </ion-content>

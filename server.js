@@ -1,11 +1,12 @@
 // create an express app
 const express = require("express")
 const path = require('path');
+const cors = require('cors');
 const app = express()
 
 // use the express-static middleware
 app.use(express.static(path.join(__dirname, 'dist/foodwithfriends')));
-
+app.use(cors());
 
 // define the first route
 
@@ -17,6 +18,15 @@ app.get('/', function (req, res) {
 // start the server listening for requests
 app.listen(process.env.PORT || 3000, 
 	() => console.log("Server is running..."));
+
+// Get our API routes
+const restaurantRoutes = require('./routes/restaurant.routes');
+// const groupRoutes = require('./routes/group.routes');
+// const userRoutes = require('./routes/user.routes');
+//Requests
+app.use("/api/v1/restaurants", restaurantRoutes);
+// app.use("/api/v1/users", userRoutes);
+// app.use("/api/v1/groups", groupRoutes);
 
 
 

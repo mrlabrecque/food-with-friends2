@@ -1,0 +1,5 @@
+{
+    "RESTAURANT_API_KEY": "HcA87TDu8Mt50oPIsVQKVItTbd3ExD_RyLZIA0m7txi4Yaiu0Aa_ceI6B4Obj6zVpRYNrguIRRqs9gVfjJ4MLOXTBjwdX6f7h8YmFW2F2q8I3_Hz3nmWc-H08fikYHYx",
+    "RESTAURANT_BASE_URL": "https://api.yelp.com/v3/businesses",
+    "PROXY_URL": "https://fwf-cors.herokuapp.com"
+}

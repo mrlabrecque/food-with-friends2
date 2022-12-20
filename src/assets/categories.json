@@ -1,0 +1,26 @@
+[
+      {
+        "name": "Burgers",
+        "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/c2.png"
+      },
+      {
+        "name": "Chicken",
+        "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/c3.png"
+      },
+      {
+        "name": "Pizza",
+        "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/c4.png"
+      },
+      {
+        "name": "Asian",
+        "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/c5.png"
+      },
+      {
+        "name": "Italian",
+        "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/c6.png"
+      },
+      {
+        "name": "Dessert",
+        "img": "https://devdactic.fra1.digitaloceanspaces.com/foodui/c7.png"
+      }
+    ]
