@@ -1,14 +1,20 @@
 <ng-container *ngIf="sliderTitle">
     <div class="flex-between">
         <span><ion-text><h2 style="display: inline-block;">{{sliderTitle | attribute}}</h2></ion-text></span>
-        <span *ngIf="showMore"><ion-text><a>show all</a></ion-text></span>
+        <span *ngIf="showMore"><ion-text><a [routerLink]="">show all</a></ion-text></span>
     </div>
     
 </ng-container>
 <ion-slides [options]="options">
     <ion-slide *ngFor="let item of items" style="text-align: left;">
         <ng-container *ngIf="sliderSize === 'large'">
-            <ion-card>
+            <ion-card style="width: 100%;">
+                <div class="image-container">
+                    <div class="image">
+                        <img [src]="item.image_url"/>
+                    </div>
+                    <app-like-button [item]="item"></app-like-button>
+                </div>
                 <ion-card-header>
                   <ion-card-title>{{item.name}}</ion-card-title>
                   <ion-card-subtitle>
@@ -16,14 +22,11 @@
                         <span>{{item.distance | metersToMiles}}</span>
                         <span><ion-icon name="star" color="primary"></ion-icon> {{item.rating}} ({{item.review_count}} reviews)</span>
                     </div>
-                    
-                    
                 </ion-card-subtitle>
-                </ion-card-header>
-              
-                <ion-card-content>
-                  Here's a small text description for the card content. Nothing more, nothing less.
-                </ion-card-content>
+                </ion-card-header>    
+                <!-- <ion-card-content>     
+                    <div><span *ngFor="let cat of item.categories"> <ion-chip>{{cat.title}}</ion-chip></span></div>
+                </ion-card-content> -->
               </ion-card>
         </ng-container>
         <ng-container *ngIf="sliderSize === 'small'">

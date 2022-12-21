@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
+import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
 import { ContentSliderOptions } from 'src/app/models/content-slider-options';
 import { Restaurant } from 'src/app/models/restaurant.model';
 import { LocationService } from 'src/app/services/location.service';
@@ -13,17 +14,21 @@ import categories  from '../../../assets/categories.json'
   styleUrls: ['./tab1.component.scss']
 })
 export class Tab1Component implements OnInit {
+  public tabLoaded$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  public loadedSubscription: Subscription;
   public loader: any;
   public userLocation = {
     Latitude: 0,
     Longitude: 0
   }
   public topContentSliderOptions: ContentSliderOptions = {
-    slidesPerView: 1.25,
+    slidesPerView: 1.1,
     spaceBetween: 5,
   };
   public topContentSliderAttribute = 'hot_and_new';
   public topContentSliderItems: Restaurant[];
+  public topContentLoaded$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
   public secondContentSliderOptions: ContentSliderOptions = {
     slidesPerView: 3.5,
     spaceBetween: 5,
@@ -31,19 +36,27 @@ export class Tab1Component implements OnInit {
   };
   public secondContentSliderAttribute = 'categories';
   public secondContentSliderItems: any[] = categories;
+  public secondContentLoaded$: BehaviorSubject<boolean> = new BehaviorSubject(true);
+
   public thirdContentSliderOptions: ContentSliderOptions = {
-    slidesPerView: 1.25,
+    slidesPerView: 1.1,
     spaceBetween: 5,
   };
   public thirdContentSliderAttribute ='deals';
   public thirdContentSliderItems: Restaurant[];
+  public thirdContentLoaded$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
   constructor(private http: HttpClient,
     private restaurantService: RestaurantServiceService, 
     private locationService: LocationService,
     private loadingCtrl: LoadingController) {
   }
   ngOnInit(): void {
+    this.loadedSubscription = this.tabLoaded$.subscribe(res => !!res ? this.loader.dismiss() : '')
     this.showLoading();
+    combineLatest([this.topContentLoaded$, this.secondContentLoaded$, this.thirdContentLoaded$]).subscribe(
+      ([first, second, third]) => first && second && third ? this.tabLoaded$.next(true) : this.tabLoaded$.next(false)
+    );
     this.locationService.getUserLocation().then((res: any) => {
       this.userLocation = res;
       this.setUpTopContentSlider();
@@ -62,8 +75,8 @@ export class Tab1Component implements OnInit {
     .set('categories', 'restaurants')
     .set('attributes', this.topContentSliderAttribute);
     this.restaurantService.getRestaurants(paramsToRequest).subscribe(res => {
-      this.topContentSliderItems = res
-      this.loader && this.loader.dismiss();
+      this.topContentSliderItems = res;
+      this.topContentLoaded$.next(true);
     });
   }
   public setUpThirdContentSlider() {
@@ -75,7 +88,7 @@ export class Tab1Component implements OnInit {
     .set('attributes', this.thirdContentSliderAttribute);
     this.restaurantService.getRestaurants(paramsToRequest).subscribe(res => {
       this.thirdContentSliderItems = res
-      this.loader && this.loader.dismiss();
+      this.thirdContentLoaded$.next(true);    
     });
   }
 }
