@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
-import { Tab1RoutingModule } from './tab1-routing.module';
 import { Tab1Component } from './tab1.component';
 import { ContentSliderComponent } from 'src/app/features/content-slider/content-slider.component';
 import { AttributePipe } from 'src/app/pipes/attribute.pipe';
@@ -23,7 +23,7 @@ import { LikeButtonComponent } from 'src/app/features/like-button/like-button.co
     CommonModule,
     FormsModule,
     IonicModule,
-    Tab1RoutingModule
+    RouterModule.forChild([{ path: '', component: Tab1Component }])
   ]
 })
 export class Tab1Module { }

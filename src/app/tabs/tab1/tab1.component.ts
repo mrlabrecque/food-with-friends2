@@ -4,8 +4,10 @@ import { LoadingController } from '@ionic/angular';
 import { BehaviorSubject, combineLatest, Subscription } from 'rxjs';
 import { ContentSliderOptions } from 'src/app/models/content-slider-options';
 import { Restaurant } from 'src/app/models/restaurant.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { LocationService } from 'src/app/services/location.service';
 import { RestaurantServiceService } from 'src/app/services/restaurant-service.service';
+import { SupabaseService } from 'src/app/services/supabase.service';
 import categories  from '../../../assets/categories.json'
 
 @Component({
@@ -49,7 +51,8 @@ export class Tab1Component implements OnInit {
   constructor(private http: HttpClient,
     private restaurantService: RestaurantServiceService, 
     private locationService: LocationService,
-    private loadingCtrl: LoadingController) {
+    private loadingCtrl: LoadingController,
+    private supabaseService: SupabaseService) {
   }
   ngOnInit(): void {
     this.loadedSubscription = this.tabLoaded$.subscribe(res => !!res ? this.loader.dismiss() : '')
@@ -62,6 +65,9 @@ export class Tab1Component implements OnInit {
       this.setUpTopContentSlider();
       this.setUpThirdContentSlider();
   });
+  }
+  public logout() {
+    this.supabaseService.signOut();
   }
   public async showLoading() {
     this.loader = await this.loadingCtrl.create({spinner:'dots'});
